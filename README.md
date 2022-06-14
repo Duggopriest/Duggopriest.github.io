@@ -2,4 +2,4 @@
 
 input
 
-<value>	<number to add>
+(value)	(number to add)
