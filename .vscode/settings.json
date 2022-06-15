@@ -5,6 +5,8 @@
 		"ostream": "cpp",
 		"iostream": "cpp",
 		"iosfwd": "cpp",
-		"xiosbase": "cpp"
-	}
+		"xiosbase": "cpp",
+		"fstream": "cpp"
+	},
+	"C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools"
 }
