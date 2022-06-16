@@ -66,12 +66,78 @@ void	resetfiles()
 	exit(0);
 }
 
+void	next(char r)
+{
+	int	i = 0;
+	string	array[100];
+	// string list;
+
+	// list.append("round");
+	// list.append(atoi(r));
+	// list.append(".html");
+
+	string roun;
+	string quest;
+
+	roun.append("round");
+	quest.append("round");
+	roun.push_back(r);
+	quest.push_back(r);
+
+	cout << "target is " << roun << endl;
+
+	roun.append(".html");
+	quest.append(".txt");
+
+
+	string		line;
+	ifstream	file;
+	file.open(roun);
+	while (getline(file, line))
+		array[i++] = line;
+	file.close();
+	file.open(quest);
+	bool	exists = false;
+	int	j;
+	while (getline(file, line))
+	{
+		j = 0;
+		exists = false;
+		while (j < i)
+		{
+			if (strncmp(&line.at(0), &array[j].at(0), 5) == 0)
+			{
+				exists = true;
+			}
+			j++;
+		}
+		if (!exists)
+			break ;
+	}
+	file.close();
+
+	cout << "next question is " << line << endl;
+	if (!exists)
+	{
+		ofstream out_file;
+		out_file.open(roun, std::ios_base::app);
+		out_file << "\n";
+		out_file << line;
+		out_file << "<p>----------------------------------------<p>";
+		out_file.close();
+	}
+	cout << "next questing writtin" << endl;
+	exit(0);
+}
+
 int main(int ac, char **av)
 {
 	if (ac <= 0)
 		return (0);
 	if (av[1][0] == 'r')
 		resetfiles();
+	else if (av[1][0] == 'n')
+		next(av[1][1]);
 	if (ac != 3)
 	{
 		cout << "plz include a team and score to add" << endl;
