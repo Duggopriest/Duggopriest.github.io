@@ -11,8 +11,6 @@ body {
 }
 
 .container {
-    width: 1160px;
-    height: 1200px; /* remove later */
     background-size: auto;
     margin-left: auto;
     margin-right: auto;
@@ -51,6 +49,7 @@ body {
 
 .sidebar {
 	padding-top: 50px;
+	padding-bottom: 50px;
     background: rgba(169, 169, 169, 0.192);
     position: center;
 	float: center;
