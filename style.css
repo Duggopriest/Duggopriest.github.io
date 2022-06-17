@@ -20,19 +20,25 @@ body {
 
 .header {
     height: 100px;
-    background: #00FFFF;
     position: center;
 }
 
 .nav ul {
    list-style-type: none;
+   color: white;
+}
+
+.button1 {
+	color: white;
 }
 
 .nav ul li {
-    float: left;
-    padding: 10px;
+	float: center;
+	padding-top: 20px;
+	padding-bottom: 20px;
     border: 3px solid rgb(255, 255, 255);
-    border-right: none;
+	font-size: 50px;
+	text-align: center;
 }
 
 .nav ul li:last-of-type {
@@ -44,9 +50,9 @@ body {
 }
 
 .sidebar {
+	padding-top: 50px;
     background: rgba(169, 169, 169, 0.192);
     position: center;
-    height: 600px;
 	float: center;
 	color: white;
 	text-align: center;
@@ -61,7 +67,7 @@ body {
 }
 
 h2 {
-    color: #26466D;
+    color: white;
     font-size: 60px;
     text-align: center;
     font-family: 'chunkfiveroman';
