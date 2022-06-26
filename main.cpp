@@ -61,8 +61,36 @@ void	resetfiles()
 	out_file.open("teams.html");
 	while (j < i)
 		out_file << array[j++] << endl;
+	out_file.close();
+	// ---------------------------------------------------------------
 
+	i = 0;
+	j = 0;
+
+	int num = 0;
+	string fname;
+	string copy;
+	while (++num <= 4)
+	{
+		fname.clear();
+		copy.clear();
+		fname.append("round");
+		fname.append(to_string(num));
+		copy.append(fname);
+		copy.append("_copy");
+		fname.append(".html");
+		copy.append(".html");
+		file.open(copy);
+		while (getline(file, array[i++]));
+		file.close();
+
+		out_file.open(fname);
+		while (j < i)
+			out_file << array[j++] << endl;
+			out_file.close();
+	}
 	cout << "files have been reset" << endl;
+
 	exit(0);
 }
 
