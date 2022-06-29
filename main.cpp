@@ -6,34 +6,14 @@
 
 using namespace std;
 
-// char	*ft_strstr(string *haystack, string *needle)
-// {
-// 	size_t	i;
-// 	size_t	j;
-
-// 	i = 0;
-// 	j = 0;
-// 	if (needle == NULL || needle[0] == '\0')
-// 		return ((char *)haystack);
-// 	while (haystack[i] != '\0')
-// 	{
-// 		if (haystack[i] == needle[j])
-// 		{
-// 			while (haystack[i + j] == needle[j] && i + j < n)
-// 			{
-// 				if (needle[j + 1] == '\0')
-// 					return ((char *)haystack + i);
-// 				j++;
-// 			}
-// 			j = 0;
-// 		}	
-// 		i++;
-// 	}
-// 	return (NULL);
-// }
-
 void	resetfiles()
 {
+	char	confirm;
+	cout << "are you sure you want to reset all the files? Y/n\n";
+	cin >> confirm;
+	if (confirm != 'y' || confirm != 'Y')
+		return ;
+
 	int			i = 0;
 	int			j = 0;
 	string		array[50];
@@ -62,6 +42,7 @@ void	resetfiles()
 	while (j < i)
 		out_file << array[j++] << endl;
 	out_file.close();
+	cout << "teams.html has been reset" << endl;
 	// ---------------------------------------------------------------
 
 	i = 0;
@@ -81,28 +62,33 @@ void	resetfiles()
 		fname.append(".html");
 		copy.append(".html");
 		file.open(copy);
+		i = 0;
 		while (getline(file, array[i++]));
 		file.close();
 
 		out_file.open(fname);
+		out_file.clear();
+		j = 0;
 		while (j < i)
 			out_file << array[j++] << endl;
-			out_file.close();
+		out_file.close();
+		cout << fname << " has been reset" << endl;
 	}
-	cout << "files have been reset" << endl;
 
-	exit(0);
+	cout << "files have been reset" << endl;
+	cout << "\npress enter to continue... " << endl;
+	cin.ignore();
+	cin.get();
 }
 
-void	next(char r)
+void	next()
 {
 	int	i = 0;
 	string	array[100];
-	// string list;
 
-	// list.append("round");
-	// list.append(atoi(r));
-	// list.append(".html");
+	char	r;
+	cout << "what round? 1-4\n";
+	cin >> r;
 
 	string roun;
 	string quest;
@@ -111,8 +97,6 @@ void	next(char r)
 	quest.append("round");
 	roun.push_back(r);
 	quest.push_back(r);
-
-	cout << "target is " << roun << endl;
 
 	roun.append(".html");
 	quest.append(".txt");
@@ -129,14 +113,13 @@ void	next(char r)
 	int	j;
 	while (getline(file, line))
 	{
-		j = 0;
+		j = 20;
 		exists = false;
 		while (j < i)
 		{
-			if (strncmp(&line.at(0), &array[j].at(0), 5) == 0)
-			{
-				exists = true;
-			}
+			if (array[j].size() > 0)
+				if (line.at(0) == array[j].at(0))
+					exists = true;
 			j++;
 		}
 		if (!exists)
@@ -155,22 +138,10 @@ void	next(char r)
 		out_file.close();
 	}
 	cout << "next questing writtin" << endl;
-	exit(0);
 }
 
-int main(int ac, char **av)
+void	team(void)
 {
-	if (ac <= 0)
-		return (0);
-	if (av[1][0] == 'r')
-		resetfiles();
-	else if (av[1][0] == 'n')
-		next(av[1][1]);
-	if (ac != 3)
-	{
-		cout << "plz include a team and score to add" << endl;
-		return (0);
-	}
 	bool		fail = true;
 
 	int			i = 0;
@@ -183,9 +154,17 @@ int main(int ac, char **av)
 	string		team;
 	string		array[50];
 
-	team.append(av[1]);
+	string av;
+	cout << "team Letters" << endl;
+	cin >> av;
+
+	string new_score;
+	cout << "add score" << endl;
+	cin >> new_score;
+
+	team.append(&av.at(0));
 	team.append(":");
-	score = atoi(av[2]);
+	score = atoi(&new_score.at(0));
 
 
 	string		line;
@@ -222,7 +201,10 @@ int main(int ac, char **av)
 	if (fail)
 	{
 		cout << "Could Not Find" << team << endl;
-		return (0);
+		cout << "\npress enter to continue... " << endl;
+		cin.ignore();
+		cin.get();
+		return ;
 	}
 
 	file.open("teams.html");
@@ -233,7 +215,7 @@ int main(int ac, char **av)
 	file.close();
 
 	team.clear();
-	team.append(av[1]);
+	team.append(&av.at(0));
 	team.append(":");
 
 	cout << "setting html" << endl;
@@ -255,15 +237,32 @@ int main(int ac, char **av)
 		j++;
 	}
 	out_file.close();
-	if (fail)
-	{
-		cout << "Could Not Find" << team << endl;
-		return (0);
-	}
 
 	if (fail)
 	{
 		cout << "Could Not Find on html" << team << endl;
-		return (0);
+		cout << "\npress enter to continue... " << endl;
+		cin.ignore();
+		cin.get();
+		return ;
+	}
+}
+
+int main(void)
+{
+	string input;
+	while (1)
+	{
+		system("clear");
+		cout << "commands are:\n	r = reset files\n	n = next question (will be prompt with what round)\n	t = add team score\n	  = exit\n";
+		cin >> input;
+		if (input.size() <= 0)
+			return (0);
+		else if (input.at(0) == 'r')
+			resetfiles();
+		else if (input.at(0) == 'n')
+			next();
+		else if (input.at(0) = 't')
+			team();
 	}
 }
