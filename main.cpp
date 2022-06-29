@@ -11,7 +11,7 @@ void	resetfiles()
 	char	confirm;
 	cout << "are you sure you want to reset all the files? Y/n\n";
 	cin >> confirm;
-	if (confirm != 'y' || confirm != 'Y')
+	if (confirm != 'y' && confirm != 'Y')
 		return ;
 
 	int			i = 0;
@@ -146,13 +146,13 @@ void	team(void)
 
 	int			i = 0;
 	int			j = 0;
-	int			off;
 
 	int			score;
 	int			current;
 
 	string		team;
 	string		array[50];
+	string		teamsarray[50];
 
 	string av;
 	cout << "team Letters" << endl;
@@ -172,21 +172,19 @@ void	team(void)
 
 	file.open("teams.txt");
 	while (getline(file, line))
-		array[i++] = line;
+		teamsarray[i++] = line;
 	file.close();
 
 
 
 	ofstream	out_file;
-	char *of;
 	out_file.open("teams.txt");
 	cout << "setting txt" << endl;
 	while (j < i)
 	{
-		of = strstr(&array[j].at(0), &team.at(0));
-		if (of)
+		if (strncmp(&teamsarray[j].at(0), &team.at(0), team.size()) == 0)
 		{
-			current = atoi(of + team.size());
+			current = atoi(&teamsarray[j].at(team.size()));
 			current += score;
 			team.append(to_string(current));
 			team.append("\n");
@@ -194,7 +192,7 @@ void	team(void)
 			fail = false;
 		}
 		else
-			out_file << array[j] << endl;
+			out_file << teamsarray[j] << endl;
 		j++;
 	}
 	out_file.close();
@@ -207,45 +205,30 @@ void	team(void)
 		return ;
 	}
 
+	i = 0;
+	file.open("teams.txt");
+	while (getline(file, line))
+		teamsarray[i++] = line;
+	file.close();
+
 	file.open("teams.html");
 	j = 0;
-	i = 0;
+	int hi = 0;
 	while (getline(file, line))
-		array[i++] = line;
+		array[hi++] = line;
 	file.close();
 
 	team.clear();
 	team.append(&av.at(0));
 	team.append(":");
 
-	cout << "setting html" << endl;
 	out_file.open("teams.html");
+	while (j < 22)
+		out_file << array[j++] << endl;
+	j = 0;
 	while (j < i)
-	{
-		of = strstr(&array[j].at(0), &team.at(0));
-		if (of)
-		{
-			current = atoi(of + team.size());
-			current += score;
-			team.append(to_string(current));
-			team.append("<p>\n");
-			out_file << team;
-			fail = false;
-		}
-		else
-			out_file << array[j] << endl;
-		j++;
-	}
+		out_file << teamsarray[j++] << "<p>" << endl;
 	out_file.close();
-
-	if (fail)
-	{
-		cout << "Could Not Find on html" << team << endl;
-		cout << "\npress enter to continue... " << endl;
-		cin.ignore();
-		cin.get();
-		return ;
-	}
 }
 
 int main(void)
@@ -254,15 +237,15 @@ int main(void)
 	while (1)
 	{
 		system("clear");
-		cout << "commands are:\n	r = reset files\n	n = next question (will be prompt with what round)\n	t = add team score\n	  = exit\n";
+		cout << "commands are:\n	r = reset files\n	n = next question (will be prompt with what round)\n	t = add team score\n	e = exit\n";
 		cin >> input;
-		if (input.size() <= 0)
-			return (0);
-		else if (input.at(0) == 'r')
+		if (input.at(0) == 'r')
 			resetfiles();
 		else if (input.at(0) == 'n')
 			next();
-		else if (input.at(0) = 't')
+		else if (input.at(0) == 't')
 			team();
+		else if (input.at(0) == 'e')
+			return (0);
 	}
 }
