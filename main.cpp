@@ -31,13 +31,13 @@ void	resetfiles()
 		out_file << array[j++] << endl;
 	out_file.close();
 
-	i = 0;
-	j = 0;
 
+	i = 0;
 	file.open("teams_copy.html");
 	while (getline(file, array[i++]));
 	file.close();
 
+	j = 0;
 	out_file.open("teams.html");
 	while (j < i)
 		out_file << array[j++] << endl;
@@ -69,6 +69,7 @@ void	resetfiles()
 		out_file.open(fname);
 		out_file.clear();
 		j = 0;
+		i--;
 		while (j < i)
 			out_file << array[j++] << endl;
 		out_file.close();
