@@ -15,7 +15,7 @@ var splashTimer = .5;
 
 var SHELL = {
 	image: document.createElement("img"),
-	pos: new Vec(0.0,10.0,0.0),
+	pos: new Vec(0.0,0.0,0.0),
 	acc: new Vec(),
 	angle: 90,
 	speed: 100.0,
@@ -94,7 +94,7 @@ function drawScene()
 	for (var i = -150; i < canvas.width + 150; i += 150)
 	{
 		context.drawImage(Grass, -(SHELL.pos.x * 150 % 150) + i, SHELL.pos.y * 5 + 990, 150, 150);
-	}context.drawImage(TargetPng, 1020 * 50 - SHELL.pos.x * 50 + 600, 1000, 100,100);
+	}context.drawImage(TargetPng, (1020 * 50 - SHELL.pos.x * 50) + 600, 1000, 100,100);
 	
 	
 	// draw bullet
