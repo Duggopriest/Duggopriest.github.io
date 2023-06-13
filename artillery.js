@@ -40,6 +40,9 @@ Mountans.src = "mountans.png";
 var Stars = document.createElement("img");
 Stars.src = "stars.jpg";
 
+var TargetPng = document.createElement("img");
+TargetPng.src = "WA_80_cm_archery_target.svg.png";
+
 var startFrameMillis = Date.now();
 var endFrameMillis = Date.now();
 
@@ -82,16 +85,17 @@ function drawScene()
 	}
 	for (var i = -1921; i < canvas.width + 1921; i += 1921)
 	{
-		context.drawImage(Mountans, -(SHELL.pos.x * 50 % 1921) + i, SHELL.pos.y + 500, 1921, 500);
+		context.drawImage(Mountans, -(SHELL.pos.x * 50 % 1921) + i, SHELL.pos.y *5+ 500, 1921, 500);
 	}
 	for (var i = -1500; i < canvas.width + 1500; i += 1500)
 	{
-		context.drawImage(Tree, -(SHELL.pos.x * 100 % 1500) + i, SHELL.pos.y + 710, 1500, 300);
+		context.drawImage(Tree, -(SHELL.pos.x * 100 % 1500) + i, SHELL.pos.y *10+ 710, 1500, 300);
 	}
 	for (var i = -150; i < canvas.width + 150; i += 150)
 	{
-		context.drawImage(Grass, -(SHELL.pos.x * 150 % 150) + i, SHELL.pos.y + 990, 150, 150);
+		context.drawImage(Grass, -(SHELL.pos.x * 150 % 150) + i, SHELL.pos.y *15+ 990, 150, 150);
 	}
+	
 	
 	// draw bullet
 	if (SHELL.fired)
