@@ -147,25 +147,8 @@ function runGame(deltaTime)
 
 	
 	if (SHELL.fired && (SHELL.pos.y > -1 || startFire < 1))
-	{
-		if (startFire == 0)
-		{
-			SHELL.angle = document.getElementById("angle").value;
-			console.log("Shell angle:" + SHELL.angle);
-
-			SHELL.acc.x = Math.cos(SHELL.angle * Math.PI / 180) * SHELL.speed;
-			SHELL.acc.y = Math.sin(SHELL.angle * Math.PI / 180) * SHELL.speed;
-
-			var range = 2 * SHELL.acc.x * SHELL.acc.y / -gravity;
-			console.log("predicted distance = " + range);
-
-			console.log(SHELL.acc);
-
-			startFire = Date.now()  * 0.001;
-		}
+	
 		calBullet(deltaTime, getTime());
-		
-	}
 	else if (SHELL.fired && SHELL.pos.y <= -1 && s)
 	{
 		console.log(SHELL.pos);
@@ -208,7 +191,21 @@ function run() {
 
 function fireGun()
 {
+	SHELL.pos = new Vec();
 	SHELL.fired = true;
+						SHELL.angle = document.getElementById("angle").value;
+									console.log("Shell angle:" + SHELL.angle);
+
+												SHELL.acc.x = Math.cos(SHELL.angle * Math.PI / 180) * SHELL.speed;
+															SHELL.acc.y = Math.sin(SHELL.angle * Math.PI / 180) * SHELL.speed;
+
+																		var range = 2 * SHELL.acc.x * SHELL.acc.y / -gravity;
+																					console.log("predicted distance = " + range);
+
+																								console.log(SHELL.acc);
+
+																											startFire = Date.now()  * 0.001;
+																													
 }
 
 //===========================================DO NOT EDIT BELOW THIS LINE =================================================
