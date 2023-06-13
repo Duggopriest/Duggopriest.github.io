@@ -94,7 +94,7 @@ function drawScene()
 	for (var i = -150; i < canvas.width + 150; i += 150)
 	{
 		context.drawImage(Grass, -(SHELL.pos.x * 150 % 150) + i, SHELL.pos.y *15+ 990, 150, 150);
-	}
+	}context.drawImage(TargetPng, 1020 * 50 - SHELL.pos.x * 50, 1000, 100,100);
 	
 	
 	// draw bullet
