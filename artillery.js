@@ -85,27 +85,27 @@ function drawScene()
 	}
 	for (var i = -1921; i < canvas.width + 1921; i += 1921)
 	{
-		context.drawImage(Mountans, -(SHELL.pos.x * 50 % 1921) + i, SHELL.pos.y * 2 + 500, 1921, 500);
+		context.drawImage(Mountans, -(SHELL.pos.x * 50 % 1921) + i, SHELL.pos.y * 2 + 400, 1921, 500);
 	}
 	for (var i = -1500; i < canvas.width + 1500; i += 1500)
 	{
-		context.drawImage(Tree, -(SHELL.pos.x * 100 % 1500) + i, SHELL.pos.y * 5 + 710, 1500, 300);
+		context.drawImage(Tree, -(SHELL.pos.x * 100 % 1500) + i, SHELL.pos.y * 5 + 610, 1500, 300);
 	}
 	for (var i = -150; i < canvas.width + 150; i += 150)
 	{
-		context.drawImage(Grass, -(SHELL.pos.x * 150 % 150) + i, SHELL.pos.y * 5 + 990, 150, 150);
-	}context.drawImage(TargetPng, (1020 * 50 - SHELL.pos.x * 50) + 600, 1000, 100,100);
+		context.drawImage(Grass, -(SHELL.pos.x * 150 % 150) + i, SHELL.pos.y * 5 + 890, 150, 150);
+	}context.drawImage(TargetPng, (1020 * 50 - SHELL.pos.x * 50) + 610, 890, 100,100);
 	
 	
 	// draw bullet
 	if (SHELL.fired)
 	{
-		context.drawImage(SHELL.image, 600, (SHELL.pos.y > 500 ? 500 : (-SHELL.pos.y + 1000)), 50, 50);
+		context.drawImage(SHELL.image, 600, (SHELL.pos.y > 500 ? 400 : (-SHELL.pos.y + 900)), 50, 50);
 	}
 	else
 	{
 		//context.scale(-1,1);
-		context.drawImage(Cannon, 500, SHELL.pos.y + 950, -271, 81);
+		context.drawImage(Cannon, 500, SHELL.pos.y + 850, -271, 81);
     
     	// always clean up -- reset transformations to default
     	context.setTransform(1,0,0,1,0,0);
