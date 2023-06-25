@@ -1,6 +1,7 @@
 var canvas = document.getElementById("gameCanvas");
 var context = canvas.getContext("2d");
-document.getElementById("angle").defaultValue = "45";
+document.getElementById("Vangle").defaultValue = "45";
+document.getElementById("Hangle").defaultValue = "45";
 
 var SCREEN_WIDTH = canvas.width;
 var SCREEN_HEIGHT = canvas.height;
@@ -17,8 +18,11 @@ var SHELL = {
 	image: document.createElement("img"),
 	oldPos: new Vec(0.0,0.0,0.0),
 	pos: new Vec(0.0,0.0,0.0),
+	mapPos: new Vec(0.0,0.0,0.0),
 	acc: new Vec(),
-	angle: 90,
+	mapAcc: new Vec(),
+	verticalAngle: 90,
+	horizontalAngle: 90,
 	speed: 100.0,
 	width: 50,
 	height: 50,
@@ -61,7 +65,7 @@ function getDeltaTime()
     return deltaTime;
 }  
 
-function calBullet(deltaTime, time)
+function calBullet( time )
 {
 	SHELL.oldPos.x = SHELL.pos.x;
 	SHELL.oldPos.y = SHELL.pos.y;
@@ -73,7 +77,8 @@ function calBullet(deltaTime, time)
 
 	SHELL.currentAngle = Math.atan( ( SHELL.oldPos.y - SHELL.pos.y ) /  ( SHELL.oldPos.x - SHELL.pos.x ) );
 
-	SHELL.mapAngle = Math.atan( ( SHELL.oldPos.z - SHELL.pos.z ) / ( SHELL.oldPos.x - SHELL.pos.x ) );
+	SHELL.mapPos.x = SHELL.mapAcc.x * time;
+	SHELL.mapPos.z = SHELL.mapAcc.z * time;
 }
 
 function drawScene()
@@ -85,7 +90,7 @@ function drawScene()
 			context.drawImage(Stars, -(SHELL.pos.x / 5 % 600) + i, (SHELL.pos.y % 600) + j, 600, 600);
 		}
 	}
-	for (var i = -1921; i < canvas.width + 1921 && SHELL.pos.y < 500; i += 1921)
+	for (var i = -1921; i < canvas.width + 1921 && SHELL.pos.y < 500; i += 1920)
 	{
 		context.drawImage(Mountans, -(SHELL.pos.x * 50 % 1921) + i, SHELL.pos.y * 10 + 400, 1921, 500);
 	}
@@ -98,7 +103,7 @@ function drawScene()
 		context.drawImage(Grass, -(SHELL.pos.x * 150 % 150) + i, SHELL.pos.y * 20 + 890, 150, 150);
 	}
 
-	context.drawImage(TargetPng, (1020 * 50 - SHELL.pos.x * 50) + 610, 890, 100,100);
+	context.drawImage(TargetPng, (MAP.distance * 50 - SHELL.pos.x * 50) + 610, 890, 100,100);
 	
 	// draw bullet
 	if (SHELL.fired)
@@ -158,12 +163,14 @@ function runGame(deltaTime)
 
 	if (SHELL.fired && SHELL.pos.y > -0.1)
 	{
-		calBullet(deltaTime, getTime());
-			
+		calBullet(getTime());
 	}
 	else if (SHELL.fired && SHELL.pos.y <= 0 && s)
 	{
+		console.log("shell pos:");
 		console.log(SHELL.pos);
+		console.log("shell MAP pos:");
+		console.log(SHELL.mapPos);
 		console.log("time = " + getTime());
 		s = false;
 		SHELL.pos.y = -0.1;
@@ -206,16 +213,23 @@ function fireGun()
 {
 	SHELL.pos = new Vec();
 	SHELL.fired = true;
-	SHELL.angle = document.getElementById("angle").value;
-	console.log("Shell angle:" + SHELL.angle);
+	SHELL.verticalAngle = document.getElementById("Vangle").value;
+	SHELL.horizontalAngle = document.getElementById("Hangle").value;
+	console.log("Shell Vangle:" + SHELL.verticalAngle);
+	console.log("Shell Hangle:" + SHELL.horizontalAngle);
 
-	SHELL.acc.x = Math.cos(SHELL.angle * Math.PI / 180) * SHELL.speed;
-	SHELL.acc.y = Math.sin(SHELL.angle * Math.PI / 180) * SHELL.speed;
+	SHELL.acc.x = Math.cos(SHELL.verticalAngle * Math.PI / 180) * SHELL.speed;
+	SHELL.acc.y = Math.sin(SHELL.verticalAngle * Math.PI / 180) * SHELL.speed;
+	console.log("Shell acc:");
+	console.log(SHELL.acc);
+
+	SHELL.mapAcc.x = Math.cos(SHELL.horizontalAngle * Math.PI / 180) * SHELL.speed * 0.7062;
+	SHELL.mapAcc.z = Math.sin(SHELL.horizontalAngle * Math.PI / 180) * SHELL.speed * 0.7062;
+	console.log("Shell Map acc:");
+	console.log(SHELL.mapAcc);
 
 	var range = 2 * SHELL.acc.x * SHELL.acc.y / -gravity;
 	console.log("predicted distance = " + range);
-
-	console.log(SHELL.acc);
 
 	startFire = Date.now()  * 0.001;																										
 }
