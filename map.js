@@ -15,7 +15,7 @@ var wood = document.createElement("img");
 wood.src = "wood.jpg";
 
 
-while ( MAP.distance < 1000 || MAP.distance > 1020 || !MAP.distance)
+while ( MAP.distance < 100 || MAP.distance > 1020 || !MAP.distance)
 {
 	MAP.targetPos.x = getRandomInt(2000) - 1000;
 	MAP.targetPos.z = getRandomInt(2000) - 1000;
