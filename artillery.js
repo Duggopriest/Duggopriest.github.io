@@ -223,8 +223,8 @@ function fireGun()
 	console.log("Shell acc:");
 	console.log(SHELL.acc);
 
-	SHELL.mapAcc.x = Math.cos(SHELL.horizontalAngle * Math.PI / 180) * SHELL.speed * 0.7062;
-	SHELL.mapAcc.z = Math.sin(SHELL.horizontalAngle * Math.PI / 180) * SHELL.speed * 0.7062;
+	SHELL.mapAcc.x = Math.cos(SHELL.horizontalAngle * Math.PI / 180) * SHELL.speed * (.01 * SHELL.acc.x);
+	SHELL.mapAcc.z = Math.sin(SHELL.horizontalAngle * Math.PI / 180) * SHELL.speed * (.01 * SHELL.acc.x);
 	console.log("Shell Map acc:");
 	console.log(SHELL.mapAcc);
 
